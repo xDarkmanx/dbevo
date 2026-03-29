@@ -1,0 +1,61 @@
+[tool.poetry]
+name = "dbevo"
+version = "0.0.1"
+description = "Database schema migrations for Python. Inspired by Play Framework Evolutions."
+authors = ["Semenets V. Pavel <p.semenets@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+packages = [{ include = "dbevo", from = "src" }]
+homepage = "https://github.com/xDarkmanx/dbevo"
+repository = "https://github.com/xDarkmanx/dbevo"
+documentation = "https://github.com/xDarkmanx/dbevo#readme"
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Database",
+    "Topic :: Software Development :: Build Tools",
+    "Typing :: Typed",
+    "Topic :: Database",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4"
+pydantic = "^2.12.5"
+
+[tool.poetry.group.lint.dependencies]
+flake8 = "^7.3.0"
+flake8-pyproject = "^1.2.4"
+
+[tool.poetry.group.security.dependencies]
+bandit = "^1.8.6"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.4.2"
+pytest-asyncio = "^1.2.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.11.0"
+anyio = "^3.7.0"
+
+[tool.poetry.group.doc.dependencies]
+mkdocs = "^1.6.1"
+mkdocs-material = "^9.7.6"
+mkdocstrings = {extras = ["python"], version = "^1.0.3"}
+
+[tool.flake8]
+max-line-length = 127
+max-complexity = 25
+ignore = "E203,E302,W503"
+exclude = [".git", "__pycache__", ".venv", "build", "dist"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
