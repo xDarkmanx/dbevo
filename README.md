@@ -88,7 +88,7 @@ dbevo status
 ### Доступные переменные
 
 | Переменная | Описание | По умолчанию |
-|------------|----------|--------------|
+| ---------- | -------- | ------------ |
 | `DBEVO_DATABASE_URL` | PostgreSQL DSN | - |
 | `DBEVO_MIGRATIONS_PATH` | Путь к миграциям | `migrations` |
 | `DBEVO_TEMPLATE_PATH` | Шаблон миграции | `src/dbevo/templates/migration.sql.j2` |
@@ -117,7 +117,7 @@ dbevo status [--debug]
 
 **Пример вывода:**
 
-```
+```text
 dbevo status
 
 Database: postgresql://localhost:5432/mydb
@@ -145,7 +145,7 @@ dbevo apply [--debug] [--auto-confirm] [--dry-run]
 **Опции:**
 
 | Опция | Описание |
-|-------|----------|
+| ----- | -------- |
 | `--debug` | Включить debug вывод |
 | `--auto-confirm` | Пропустить подтверждение |
 | `--dry-run` | Показать SQL без выполнения |
@@ -161,7 +161,7 @@ dbevo revert --to 000002 [--debug] [--dry-run] [--auto-confirm] [--force]
 **Опции:**
 
 | Опция | Описание |
-|-------|----------|
+| ----- | -------- |
 | `--to` | Номер миграции, к которой откатиться |
 | `--dry-run` | Показать SQL без выполнения |
 | `--auto-confirm` | Пропустить подтверждение |
@@ -196,7 +196,7 @@ dbevo generate models [--output <path>]
 
 Миграции организованы по **группам** (схемам) и имеют **глобальный номер**.
 
-```
+```text
 migrations/
 ├── core/
 │   ├── 000001__init_core_schema.sql
@@ -209,7 +209,7 @@ migrations/
 
 ### Формат имени файла
 
-```
+```text
 <6-digit-number>__<description>.sql
 ```
 
@@ -250,7 +250,7 @@ DROP SCHEMA IF EXISTS "utils";
 **Секции:**
 
 | Секция | Описание |
-|--------|----------|
+| ------ | -------- |
 | `-- !Ups` | SQL для применения миграции |
 | `-- !Downs` | SQL для отката миграции |
 

@@ -8,13 +8,12 @@ Applies migrations in GLOBAL order by migration_number.
 """
 
 import asyncpg
-import re
 import time
 from datetime import datetime
 from pathlib import Path
 
 from dbevo.config import Settings
-from dbevo.core.parser import MigrationParser, ParsedMigration
+from dbevo.core.parser import MigrationParser
 
 
 class MigrationExecutor:
@@ -182,7 +181,7 @@ class MigrationExecutor:
             self._debug(f"Executing !Ups SQL ({len(migration.ups.sql)} chars)")
             await self._connection.execute(migration.ups.sql)
 
-            self._debug(f"Recording in dbevo.migrations")
+            self._debug("Recording in dbevo.migrations")
             await self._connection.execute(
                 """
                 INSERT INTO dbevo.migrations (
@@ -205,7 +204,7 @@ class MigrationExecutor:
                 int((time.time() - start_time) * 1000),
             )
 
-            self._debug(f"Recording in dbevo.migration_history")
+            self._debug("Recording in dbevo.migration_history")
             await self._connection.execute(
                 """
                 INSERT INTO dbevo.migration_history (
@@ -302,10 +301,10 @@ class MigrationExecutor:
             start_time = time.time()
 
             async with self._connection.transaction():
-                self._debug(f"    Executing !Downs SQL")
+                self._debug("    Executing !Downs SQL")
                 await self._connection.execute(migration.downs.sql)
 
-                self._debug(f"    Updating dbevo.migrations status")
+                self._debug("    Updating dbevo.migrations status")
                 await self._connection.execute(
                     """
                     UPDATE dbevo.migrations
@@ -319,7 +318,7 @@ class MigrationExecutor:
                     migration_number,
                 )
 
-                self._debug(f"    Recording in dbevo.migration_history")
+                self._debug("    Recording in dbevo.migration_history")
                 await self._connection.execute(
                     """
                     INSERT INTO dbevo.migration_history (
@@ -392,7 +391,7 @@ class MigrationExecutor:
             return row['id']
 
         # Create new (no sort_order needed!)
-        self._debug(f"  Creating new group")
+        self._debug("  Creating new group")
         result = await self._connection.fetchrow(
             """
             INSERT INTO dbevo.migration_groups (name, description)

@@ -27,7 +27,6 @@ class MigrationGenerator:
 
         # Setup Jinja2 environment
         template_dir = settings.template_path.parent
-        template_name = settings.template_path.name
 
         self.env = Environment(
             loader=FileSystemLoader(template_dir),

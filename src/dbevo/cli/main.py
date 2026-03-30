@@ -266,7 +266,7 @@ def apply(ctx, debug: bool, auto_confirm: bool, dry_run: bool):
                     f"[green]✓[/green] Applied in {result['execution_time_ms']}ms"
                 )
 
-            console.print(f"\n[green]✓[/green] All migrations applied successfully!")
+            console.print("\n[green]✓[/green] All migrations applied successfully!")
 
         except asyncpg.PostgresError as e:
             console.print(f"[red]Database error:[/red] {e}")
@@ -384,7 +384,7 @@ def revert(ctx, debug: bool, target: int, dry_run: bool, auto_confirm: bool, for
                     )
 
                 console.print(
-                    f"\n[green]✓[/green] All migrations reverted successfully!"
+                    "\n[green]✓[/green] All migrations reverted successfully!"
                 )
 
         except FileNotFoundError as e:
