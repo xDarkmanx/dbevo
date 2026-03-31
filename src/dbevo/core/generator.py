@@ -26,7 +26,7 @@ class MigrationGenerator:
         self.settings = settings
 
         # Setup Jinja2 environment
-        template_dir = settings.template_path.parent
+        template_dir = settings.migration_template.parent
 
         self.env = Environment(
             loader=FileSystemLoader(template_dir),
@@ -57,10 +57,10 @@ class MigrationGenerator:
 
         # Load template
         try:
-            template = self.env.get_template(self.settings.template_path.name)
+            template = self.env.get_template(self.settings.migration_template.name)
         except TemplateNotFound:
             raise FileNotFoundError(
-                f"Template not found: {self.settings.template_path}"
+                f"Template not found: {self.settings.migration_template}"
             )
 
         # Auto-detect migration number if not provided (GLOBAL max+1)

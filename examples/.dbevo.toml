@@ -1,0 +1,31 @@
+[dbevo]
+author = "You Name <you@email>"
+project = "dbevo"
+auto_apply = false
+dry_run = false
+verbose = true
+
+[dbevo.database]
+database_uri="postgresql://user:pass@localhost:5432/database"
+pool_min_size = 1
+pool_max_size = 10
+command_timeout = 60
+
+[dbevo.migrations]
+path = "dbevo"
+table = "dbevo.migrations"
+groups_table = "dbevo.migration_groups"
+history_table = "dbevo.migration_history"
+lock_table = "dbevo.locks"
+config_table = "dbevo.config"
+
+[dbevo.generate]
+migration_template = "dbevo/templates/migration.sql.j2"
+sqlalchemy_template = "dbevo/templates/sqlalchemy.py.j2"
+pydantic_template = "dbevo/templates/pydantic.py.j2"
+
+[dbevo.generate.exclude]
+columns = ["id", "create_at", "update_at"]
+technical = false
+sensitive = false
+foreign_keys = false

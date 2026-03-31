@@ -13,7 +13,6 @@
 
 - [Установка](#-установка)
 - [Быстрый старт](#-быстрый-старт)
-- [Конфигурация](#-конфигурация)
 - [CLI Команды](#-cli-команды)
 - [Структура миграций](#-структура-миграций)
 - [Примеры](#-примеры)
@@ -39,12 +38,40 @@ poetry install
 
 ### 1. Настройка окружения
 
-Создайте файл `.env` в корне проекта:
+Создайте файл `.dbevo.toml` в корне проекта:
 
-```env
-DBEVO_DATABASE_URL=postgresql://user:password@localhost:5432/mydb
-DBEVO_MIGRATIONS_PATH=migrations
-DBEVO_TEMPLATE_PATH=src/dbevo/templates/migration.sql.j2
+```toml
+[dbevo]
+author = "You name <you@email>"
+project = "dbevo"
+auto_apply = false
+dry_run = false
+verbose = true
+
+[dbevo.database]
+database_uri="postgresql://user:pass@localhost:5432/database"
+pool_min_size = 1
+pool_max_size = 10
+command_timeout = 60
+
+[dbevo.migrations]
+path = "dbevo"
+table = "dbevo.migrations"
+groups_table = "dbevo.migration_groups"
+history_table = "dbevo.migration_history"
+lock_table = "dbevo.locks"
+config_table = "dbevo.config"
+
+[dbevo.generate]
+migration_template = "templates/migration.sql.j2"
+sqlalchemy_template = "templates/sqlalchemy.py.j2"
+pydantic_template = "templates/pydantic.py.j2"
+
+[dbevo.generate.exclude]
+columns = ["id", "create_at", "update_at"]
+technical = false
+sensitive = false
+foreign_keys = false
 ```
 
 ### 2. Инициализация схемы отслеживания
@@ -74,26 +101,6 @@ dbevo apply
 ```bash
 dbevo status
 ```
-
----
-
-## ⚙️ Конфигурация
-
-Конфигурация загружается в следующем порядке (приорет сверху вниз):
-
-1. **Переменные окружения** (префикс `DBEVO_`)
-2. **Файл `.env`**
-3. **Значения по умолчанию**
-
-### Доступные переменные
-
-| Переменная | Описание | По умолчанию |
-| ---------- | -------- | ------------ |
-| `DBEVO_DATABASE_URL` | PostgreSQL DSN | - |
-| `DBEVO_MIGRATIONS_PATH` | Путь к миграциям | `migrations` |
-| `DBEVO_TEMPLATE_PATH` | Шаблон миграции | `src/dbevo/templates/migration.sql.j2` |
-| `DBEVO_SCHEMA_NAME` | Схема БД | `dbevo` |
-| `DBEVO_GENERATE_OUTPUT` | Выходная директория для генерации моделей | `src/dbevo/models` |
 
 ---
 

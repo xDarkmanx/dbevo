@@ -32,8 +32,8 @@ class MigrationExecutor:
 
     async def connect(self) -> None:
         """Establish database connection."""
-        self._connection = await asyncpg.connect(self.settings.database_url)
-        self._debug(f"Connected to {self.settings.database_url}")
+        self._connection = await asyncpg.connect(self.settings.database_uri)
+        self._debug(f"Connected to {self.settings.database_uri}")
 
     async def close(self) -> None:
         """Close database connection."""
